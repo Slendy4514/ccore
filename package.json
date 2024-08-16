@@ -1,0 +1,30 @@
+{
+  "name": "carlitoscore",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/esm/CCore.js",
+  "types": "dist/types/src/CCore.d.ts",
+  "scripts": {
+    "test": "tsx test/test.ts",
+    "tsc_init": "tsc --init",
+    "build-module": "tsc --project tsconfig.esm.json",
+    "build-js": "tsc --project tsconfig.cjs.json",
+    "build": "npm run build-js & npm run build-module"
+  },
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js",
+    "default": "./dist/esm/index.js"
+  },
+  "type": "module",
+  "author": "Slendy4514",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "nodemon": "^3.1.4",
+    "puppeteer": "^23.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  }
+}
