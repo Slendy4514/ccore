@@ -1,0 +1,35 @@
+{
+  "name": "carlitoscore",
+  "version": "1.0.0",
+  "description": "A flexible and customizable tool designed to simplify the management of locators in web scraping systems such as Puppeteer or Selenium. This package allows developers to easily modify locators without touching the underlying code, offering a seamless way to adjust selectors and paths dynamically. Perfect for maintaining large-scale scraping systems with minimal manual intervention.",
+  "main": "dist/esm/CCore.js",
+  "types": "dist/types/src/CCore.d.ts",
+  "scripts": {
+    "test": "tsx test/test.ts",
+    "tsc_init": "tsc --init",
+    "build-module": "tsc --project tsconfig.esm.json",
+    "build-js": "tsc --project tsconfig.cjs.json",
+    "build": "npm run build-js & npm run build-module"
+  },
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js",
+    "default": "./dist/esm/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slendy4514/ccore.git"
+  },
+  "type": "module",
+  "author": "Slendy4514",
+  "license": "ISC",
+  "keywords": ["UI automation", "DOM manipulation", "error handling", "selectors"],
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "nodemon": "^3.1.4",
+    "puppeteer": "^23.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  }
+}
