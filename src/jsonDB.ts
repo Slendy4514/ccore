@@ -28,11 +28,11 @@ export default class jsonDB extends dbAdapter{
 
     async saveElement(element : UIElement): Promise<void> {
         const dbContent = await this.readDbFile();
-        dbContent[element.name] = {
-            name: element.name,
+        dbContent[element.getName()] = {
+            name: element.getName(),
             selectors: element.getSelector(),
             father: element.getPath(),
-            url: element.url,
+            url: element.getURL(),
         };
         await this.writeDbFile(dbContent);
     }

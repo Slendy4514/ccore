@@ -1,6 +1,6 @@
 {
   "name": "carlitos-core",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "A flexible and customizable tool designed to simplify the management of locators in web scraping systems such as Puppeteer or Selenium. This package allows developers to easily modify locators without touching the underlying code, offering a seamless way to adjust selectors and paths dynamically. Perfect for maintaining large-scale scraping systems with minimal manual intervention.",
   "main": "dist/esm/CCore.js",
   "types": "dist/types/src/CCore.d.ts",
@@ -12,9 +12,9 @@
     "build": "npm run build-js & npm run build-module"
   },
   "exports": {
-    "import": "./dist/esm/index.js",
-    "require": "./dist/cjs/index.js",
-    "default": "./dist/esm/index.js"
+    "import": "./dist/esm/CCore.js",
+    "require": "./dist/cjs/CCore.js",
+    "default": "./dist/esm/CCore.js"
   },
   "repository": {
     "type": "git",

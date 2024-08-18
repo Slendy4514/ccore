@@ -33,12 +33,12 @@ interface globalActions{
 }
 
 class UIElement{
-    name : string
+    private name : string
     private selectors : selector[]
     private father : path[] = []
-    url : string
-    database : dbAdapter
-    defaultAction : string
+    private url : string
+    private database : dbAdapter
+    private defaultAction : string
     static elementActions : defaultActions
     static globalActions : globalActions
     static callbacks : executeCallbacks = {
@@ -56,16 +56,54 @@ class UIElement{
         this.database = db
     }
 
+    public getName(){
+        return this.name
+    }
+
     public getSelector(at : number = 0){
         return this.selectors[at].selector
     }
-    
-    public getSelectorType(at : number = 0){
-        return this.selectors[at]["type"]
+
+    public async setSelectors(selectors : selector[]){
+        this.selectors = selectors
+        await this.database.saveElement(this)
+    }
+
+    public async setSelector(at : number = 0, selector : selector){
+        this.selectors[at] = selector
+        await this.database.saveElement(this)
     }
     
     public getPath(at : number = 0) : path | null{
         return this.father[at] || null
+    }
+
+    public async setPath(at : number = 0, path : path){
+        this.father[at] = path
+        await this.database.saveElement(this)
+    }
+
+    public async setPaths(path : path[]){
+        this.father = path
+        await this.database.saveElement(this)
+    }
+
+    public getURL(){
+        return this.url
+    }
+
+    public async setURL(url : string){
+        this.url = url
+        await this.database.saveElement(this)
+    }
+
+    public getDefaultAction(){
+        return this.defaultAction
+    }
+
+    public async setDefaultAction(action : string){
+        this.defaultAction = action
+        await this.database.saveElement(this)
     }
 
     public async execute(args? : args, action : string = this.defaultAction) : Promise<any> {
