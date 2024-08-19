@@ -35,7 +35,7 @@ interface globalActions{
 class UIElement{
     private name : string
     private selectors : selector[]
-    private father : path[] = []
+    private father : path[]
     private url : string
     private database : dbAdapter
     private defaultAction : string
@@ -61,16 +61,15 @@ class UIElement{
     }
 
     public getSelector(at : number = 0){
-        return this.selectors[at].selector
+        return this.selectors[at].selector || null
+    }
+
+    public getSelectors(){
+        return this.selectors
     }
 
     public async setSelectors(selectors : selector[]){
         this.selectors = selectors
-        await this.database.saveElement(this)
-    }
-
-    public async setSelector(at : number = 0, selector : selector){
-        this.selectors[at] = selector
         await this.database.saveElement(this)
     }
     
@@ -78,9 +77,8 @@ class UIElement{
         return this.father[at] || null
     }
 
-    public async setPath(at : number = 0, path : path){
-        this.father[at] = path
-        await this.database.saveElement(this)
+    public getPaths() : path[]{
+        return this.father
     }
 
     public async setPaths(path : path[]){
