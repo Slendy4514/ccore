@@ -11,8 +11,17 @@ interface args{
     [key : string] : any
 }
 
-type UIAction = (element: UIElement, args?: args) => Promise<any>;
-type GlobalAction = (...agrs : any) => Promise<any>;
+interface UIElementData{
+    name: string,
+     selectors: selector[],
+     father: path[],
+     url: string,
+    defaultAction : string
+    [key : string] : any
+}
+
+export type UIAction = (element: UIElement, args?: args) => Promise<any>;
+export type GlobalAction = (...agrs : any) => Promise<any>;
 
 interface defaultActions{
     [key: string] : UIAction
@@ -39,6 +48,7 @@ class UIElement{
     private url : string
     private database : dbAdapter
     private defaultAction : string
+    private args : args
     static elementActions : defaultActions
     static globalActions : globalActions
     static callbacks : executeCallbacks = {
@@ -47,12 +57,14 @@ class UIElement{
         onPathSuccess : async (element, args) => {},
         onPathError : async (element, error, cb) => {}
     }
-    constructor(json : {name: string, selectors: selector[], father: path[], url: string, defaultAction : string}, db : dbAdapter){
-        this.name = json.name
-        this.selectors = json.selectors
-        this.father = json.father
-        this.url = json.url
-        this.defaultAction = json.defaultAction || "get"
+    constructor(json : UIElementData, db : dbAdapter){
+        const {name, selectors, father, url, defaultAction, ...args} = json
+        this.name = name
+        this.selectors = selectors
+        this.father = father
+        this.url = url
+        this.defaultAction = defaultAction || "get"
+        this.args = args
         this.database = db
     }
 
@@ -101,6 +113,15 @@ class UIElement{
 
     public async setDefaultAction(action : string){
         this.defaultAction = action
+        await this.database.saveElement(this)
+    }
+
+    public getArgs(arg : string){
+        return this.args[arg]
+    }
+
+    public async setArgs(args : args){
+        this.args = args
         await this.database.saveElement(this)
     }
 
